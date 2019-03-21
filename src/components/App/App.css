@@ -1,0 +1,16 @@
+.AppHeader {
+  float: top;
+  margin: 30px;
+  padding: 20px;
+}
+
+.MainPage {
+  text-align: center;
+}
+
+@media screen and (min-width: 440px) {
+  .AppHeader,
+  .MainPage {
+    display: initial;
+  }
+}

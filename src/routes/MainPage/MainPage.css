@@ -1,0 +1,22 @@
+.MainParagraph {
+  text-align: center;
+  margin: 30px;
+  border: hidden;
+  width: 200px;
+  padding: 20px;
+}
+
+.LinkToNewList {
+  text-align: center;
+  border-width: 100px;
+  padding: 10px;
+  border: 2px black solid;
+  background: none;
+  color: red;
+}
+
+@media screen and (min-width: 440px) {
+  .MainParagraph {
+    display: initial;
+  }
+}
