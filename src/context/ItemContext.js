@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 
-export const nullItem = {
-  author: {},
-  tags: []
-};
-
 const ItemContext = React.createContext({
-  item: nullItem,
+  item: {},
   error: null,
   setError: () => {},
   clearError: () => {},
@@ -20,7 +15,7 @@ export default ItemContext;
 
 export class ItemProvider extends Component {
   state = {
-    item: nullItem,
+    item: {},
     error: null
   };
 
@@ -42,7 +37,6 @@ export class ItemProvider extends Component {
   };
 
   clearItem = () => {
-    this.setItem(nullItem);
     this.setItems([]);
   };
 

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Section } from "../../components/Utils/Utils";
 import { Link } from "react-router-dom";
-import Lists from "../Lists/Lists";
+import GroceryLists from "../GroceryLists/GroceryLists";
 import "./MainPage.css";
 import Tooltip from "../../MISC/composition/Tooltip";
+import TokenService from "../../services/token-service";
 
 const firstTooltip = (
   <Tooltip
@@ -15,6 +16,24 @@ const firstTooltip = (
 );
 
 export default class MainPage extends Component {
+  renderUserLists() {
+    return (
+      <div className="UserGroceryLists">
+        <GroceryLists className="AllGroceryLists" />
+      </div>
+    );
+  }
+
+  renderStartNewList() {
+    return (
+      <div className="CreateNewList">
+        <Link to={`/addList`} className="LinkToNewList">
+          Start New List
+        </Link>
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className="Nav">
@@ -38,11 +57,10 @@ export default class MainPage extends Component {
                 adding to it!
               </p>
             </section>
-            <Link to={`/newList`} className="LinkToNewList">
-              Start New List
-            </Link>
-            <Lists className="AllGroceryLists" />
           </Section>
+          {TokenService.hasAuthToken() ? this.renderStartNewList() : null}
+          <br />
+          {TokenService.hasAuthToken() ? this.renderUserLists() : null}
         </div>
       </div>
     );

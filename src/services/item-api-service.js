@@ -4,16 +4,16 @@ import config from "../config";
 const ItemApiService = {
   getItems() {
     return fetch(`${config.API_ENDPOINT}/items`, {
-      headers: {}
+      headers: {
+        authorization: `bearer ${TokenService.getAuthToken()}`
+      }
     }).then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
     );
   },
   getItem(itemId) {
     return fetch(`${config.API_ENDPOINT}/items/${itemId}`, {
-      headers: {
-        authorization: `bearer ${TokenService.getAuthToken()}`
-      }
+      headers: {}
     }).then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
     );
@@ -29,7 +29,8 @@ const ItemApiService = {
         id: item.id,
         title: item.title,
         quantity: item.quantity,
-        date_created: item.date_created
+        date_created: item.date_created,
+        listId: item.listId
       })
     }).then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()

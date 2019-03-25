@@ -18,7 +18,6 @@ export default class RegistrationForm extends Component {
 
     this.setState({ error: null });
     AuthApiService.postUser({
-      id: Math.random() * 1000,
       user_name: user_name.value,
       password: password.value,
       email: email.value,

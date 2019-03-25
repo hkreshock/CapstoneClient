@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 const ListContext = React.createContext({
-  groceryLists: [],
+  groceryList: [],
   error: null,
   setError: () => {},
   clearError: () => {},

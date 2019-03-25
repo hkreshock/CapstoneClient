@@ -15,41 +15,28 @@ import ItemListPage from "../../routes/ItemListPage/ItemListPage";
 import MainPage from "../../routes/MainPage/MainPage";
 import NewList from "../../routes/NewList/NewList";
 import Bubbles from "../../components/BubblesForMain/Bubbles";
-
-// const firstTooltip = (
-//   <Tooltip color="hotpink" message="tooltip message">
-//     ipsum
-//   </Tooltip>
-// );
-// const secondTooltip = (
-//   <Tooltip color="#126BCC" message="another tooltip message">
-//     officiis
-//   </Tooltip>
-// );
+import ListPage from "../../routes/ListPage/ListPage";
+import AddNewList from "../../routes/AddNewList/AddNewList";
+import TokenService from "../../services/token-service";
 
 class App extends Component {
-  state = {
-    shoppingItems: []
-  };
-
   render() {
     return (
       <div className="App">
         <header className="AppHeader">
-          <Header />
+          <Header hasLoggedIn={TokenService.hasAuthToken()} />
         </header>
         <main className="AppMain">
           <Bubbles numberOfBubbles={60} />
           <Switch>
-            {this.state.hasError && (
-              <p className="red">There was an error! Oh no!</p>
-            )}
             <Route exact path={"/"} component={MainPage} className="MainPage" />
             <Route exact path={"/itemList"} component={ItemListPage} />
             <PublicOnlyRoute path={"/login"} component={LoginPage} />
             <PublicOnlyRoute path={"/register"} component={RegistrationPage} />
-            <PublicOnlyRoute path={"/newList"} component={NewList} />
+            <PrivateRoute path={"/newList"} component={NewList} />
             <PrivateRoute path={"/item/:itemId"} component={ItemPage} />
+            <PrivateRoute path={"/list/:listId"} component={ListPage} />
+            <PrivateRoute path={"/addList"} component={AddNewList} />
             <Route component={PageNotFound} />
           </Switch>
         </main>

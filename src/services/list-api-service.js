@@ -4,13 +4,16 @@ import config from "../config";
 const ListApiService = {
   getLists() {
     return fetch(`${config.API_ENDPOINT}/api/lists`, {
-      headers: {}
+      method: "GET",
+      headers: {
+        authorization: `bearer ${TokenService.getAuthToken()}`
+      }
     }).then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
     );
   },
   getList(listId) {
-    return fetch(`${config.API_ENDPOINT}/api/lists/${listId}`, {
+    return fetch(`${config.API_ENDPOINT}/items/${listId}`, {
       headers: {
         authorization: `bearer ${TokenService.getAuthToken()}`
       }
@@ -26,10 +29,8 @@ const ListApiService = {
         authorization: `bearer ${TokenService.getAuthToken()}`
       },
       body: JSON.stringify({
-        id: list.id,
         title: list.title,
-        quantity: list.quantity,
-        date_created: list.date_created
+        userId: list.userId
       })
     }).then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()

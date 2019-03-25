@@ -10,6 +10,7 @@ export default class ItemListPage extends Component {
 
   componentDidMount() {
     this.context.clearError();
+    console.log(ItemApiService.getItems());
     ItemApiService.getItems()
       .then(data => this.context.setItemList(data))
       .catch(data => this.context.setError(data));
@@ -20,7 +21,7 @@ export default class ItemListPage extends Component {
     return itemList.map(item => <ItemsListItem key={item.id} item={item} />);
   }
 
-  handleAddItem = (itemName, itemQuantity) => {
+  handleAddItem = (itemName, itemQuantity, listId) => {
     const newItem = {
       id: Math.random() * 1000,
       title: itemName,

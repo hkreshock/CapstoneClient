@@ -7,6 +7,7 @@ import "./Header.css";
 export default class Header extends Component {
   handleLogoutClick = () => {
     TokenService.clearAuthToken();
+    this.forceUpdate();
   };
 
   renderLogoutLink() {
@@ -37,7 +38,7 @@ export default class Header extends Component {
             <div className="Title">Grocery Helper</div>
           </Link>
         </h1>
-        {TokenService.hasAuthToken()
+        {this.props.hasLoggedIn
           ? this.renderLogoutLink()
           : this.renderLoginLink()}
       </nav>

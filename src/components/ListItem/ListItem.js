@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { NiceDate } from "../Utils/Utils";
 import ListContext from "../../context/ListContext";
 import ListApiService from "../../services/list-api-service";
+import "./ListItem.css";
 
-export default class GroceryLists extends Component {
+export default class ListItem extends Component {
   static contextType = ListContext;
 
   handleDeleteItem = list => {
@@ -14,13 +15,13 @@ export default class GroceryLists extends Component {
   };
 
   render() {
-    const { list } = this.props;
+    const { item } = this.props;
     return (
       <div className="AllLists">
-        <Link to={`/list/${list.id}`} className="ListById">
+        <Link to={`/list/${item.id}`} className="ListById">
           <header className="ListById__header">
-            <h2 className="ListById__heading">{list.title}</h2>
-            <ListDate item={list} />
+            <h2 className="ListById__heading">{item.title}</h2>
+            <ListDate item={item} />
           </header>
         </Link>
         <main>
@@ -28,7 +29,7 @@ export default class GroceryLists extends Component {
             className="deleteButton"
             onClick={e => {
               e.stopPropagation();
-              this.handleDeleteItem(list);
+              this.handleDeleteItem(item);
             }}
             type="button"
           >
@@ -40,10 +41,10 @@ export default class GroceryLists extends Component {
   }
 }
 
-function ListDate({ list }) {
+function ListDate({ item }) {
   return (
     <span className="List__date">
-      <NiceDate date={list.date_created} />
+      <NiceDate date={item.date_created} />
     </span>
   );
 }
