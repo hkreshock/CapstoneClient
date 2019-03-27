@@ -28,7 +28,6 @@ export default class ItemPage extends Component {
           <Hyph />
           <NiceDate date={item.date_created} />
         </p>
-        <ItemContent item={item} />
         <ItemItems quantity={quantity} />
       </>
     );
@@ -51,10 +50,6 @@ export default class ItemPage extends Component {
     }
     return <Section className="ItemPage">{content}</Section>;
   }
-}
-
-function ItemContent({ item }) {
-  return <p className="ItemPage__content">{item.content}</p>;
 }
 
 function ItemItems({ items = [] }) {

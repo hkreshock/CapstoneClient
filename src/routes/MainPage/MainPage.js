@@ -44,10 +44,10 @@ export default class MainPage extends Component {
               <p>
                 This is your new tool to give your shopping list some depth!
               </p>{" "}
-              <p>
+              <section>
                 If you haven't yet, register or login {firstTooltip} to begin
                 creating your new and advanced lists!
-              </p>
+              </section>
               <p>
                 If you're already logged in, click on "Start New List" to begin
                 using the Grocery Helper,{" "}

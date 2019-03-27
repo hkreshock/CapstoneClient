@@ -12,6 +12,11 @@ export default class ItemListPage extends Component {
     this.context.clearError();
     console.log(ItemApiService.getItems());
     ItemApiService.getItems()
+    // .then(data => {
+    //   return data.filter(
+    //     item => item.listid === this.context
+    //   )
+    // })
       .then(data => this.context.setItemList(data))
       .catch(data => this.context.setError(data));
   }
@@ -21,12 +26,13 @@ export default class ItemListPage extends Component {
     return itemList.map(item => <ItemsListItem key={item.id} item={item} />);
   }
 
-  handleAddItem = (itemName, itemQuantity, listId) => {
+  handleAddItem = (itemName, itemQuantity) => {
     const newItem = {
       id: Math.random() * 1000,
       title: itemName,
       quantity: itemQuantity,
-      date_created: new Date()
+      date_created: new Date(),
+      listid: 2
     };
     const newItems = [...this.context.itemList, newItem];
     this.context.setItemList(newItems);

@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import { Hyph } from "../Utils/Utils";
 import TokenService from "../../services/token-service";
 import "./Header.css";
+import LoginContext from "../../context/UserContext";
 
 export default class Header extends Component {
+  static contextType = LoginContext;
+
   handleLogoutClick = () => {
-    TokenService.clearAuthToken();
-    this.forceUpdate();
+    TokenService.clearAuthToken().then(this.context.logOut);
   };
 
   renderLogoutLink() {
@@ -30,6 +32,10 @@ export default class Header extends Component {
     );
   }
 
+  renderWelcomeUser() {
+    return <h2>Welcome {this.context.userLoggedIn.user_name}</h2>;
+  }
+
   render() {
     return (
       <nav className="Header">
@@ -38,7 +44,8 @@ export default class Header extends Component {
             <div className="Title">Grocery Helper</div>
           </Link>
         </h1>
-        {this.props.hasLoggedIn
+        {this.context.userLoggedIn == null ? this.renderWelcomeUser() : null}
+        {this.context.loggedIn === true
           ? this.renderLogoutLink()
           : this.renderLoginLink()}
       </nav>

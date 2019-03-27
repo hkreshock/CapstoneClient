@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 const ItemListContext = React.createContext({
   itemList: [],
-  listTitle: "",
+  listId: null,
   error: null,
   setError: () => {},
   clearError: () => {},
@@ -13,6 +13,7 @@ export default ItemListContext;
 export class ItemListProvider extends Component {
   state = {
     itemList: [],
+    listId: null,
     error: null
   };
 
@@ -32,7 +33,7 @@ export class ItemListProvider extends Component {
   render() {
     const value = {
       itemList: this.state.itemList,
-      listTitle: this.state.listTitle,
+      listId: this.state.listId,
       error: this.state.error,
       setError: this.setError,
       clearError: this.clearError,

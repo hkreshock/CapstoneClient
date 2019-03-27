@@ -1,22 +1,24 @@
 import React, { Component } from "react";
-import ListContext from "../../context/ListContext";
 import ListApiService from "../../services/list-api-service";
 import { Section } from "../../components/Utils/Utils";
 import ListItem from "../../components/ListItem/ListItem";
+import LoginContext from "../../context/UserContext";
 
 export default class GroceryLists extends Component {
-  static contextType = ListContext;
+  static contextType = LoginContext;
 
   componentDidMount() {
     this.context.clearError();
-    console.log(ListApiService.getLists());
     ListApiService.getLists()
       .then(data => {
-        this.context.setGroceryLists(data);
+        return data.filter(
+          list => list.userid === this.context.userLoggedIn.id
+        );
       })
-      .catch(data => {
-        this.context.setError(data);
-      });
+      .then(data => this.context.setGroceryLists(data));
+    return ListApiService.getLists().catch(data => {
+      this.context.setError(data);
+    });
   }
 
   renderFullList() {

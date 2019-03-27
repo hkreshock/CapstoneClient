@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { NiceDate } from "../Utils/Utils";
-import ListContext from "../../context/ListContext";
+import LoginContext from "../../context/UserContext";
 import ListApiService from "../../services/list-api-service";
 import "./ListItem.css";
 
 export default class ListItem extends Component {
-  static contextType = ListContext;
+  static contextType = LoginContext;
 
   handleDeleteItem = list => {
     const newLists = this.context.groceryList.filter(itm => itm !== list);

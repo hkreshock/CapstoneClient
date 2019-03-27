@@ -1,17 +1,23 @@
 import React, { Component } from "react";
 import ListApiService from "../../services/list-api-service";
 import { NiceDate, Hyph, Section } from "../../components/Utils/Utils";
-import ListContext from "../../context/ListContext";
+import LoginContext from "../../context/UserContext";
+import ItemListPage from "../../components/ItemListPage/ItemListPage";
 
 export default class ListPage extends Component {
-  static contextType = ListContext;
+  static contextType = LoginContext;
+
+  state = {
+    loaded: false
+  };
 
   componentDidMount() {
     const { listId } = this.props.match.params;
     this.context.clearError();
     ListApiService.getList(listId)
-      .then(this.context.setList)
+      .then(data => this.context.setList(data))
       .catch(this.context.setError);
+    this.setState({ loaded: true });
   }
 
   componentWillUnmount() {
@@ -19,21 +25,25 @@ export default class ListPage extends Component {
   }
 
   renderList() {
-    const { list } = this.props;
-    return (
-      <>
-        <h2>{list.title}</h2>
-        <p>
-          <Hyph />
-          <NiceDate date={list.date_created} />
-        </p>
-        <ListContent list={list} />
-      </>
-    );
+    const { List } = this.context;
+    if (!List) {
+      return <div className="loading" />;
+    } else {
+      return (
+        <div className="List_Content">
+          <h2>{List.title}</h2>
+          <p>
+            <Hyph />
+            <NiceDate date={List.date_created} />
+          </p>
+          <ItemListPage />
+        </div>
+      );
+    }
   }
 
   render() {
-    const { error, groceryList } = this.context;
+    const { error, List } = this.context;
     let content;
     if (error) {
       content =
@@ -42,15 +52,11 @@ export default class ListPage extends Component {
         ) : (
           <p className="red">There was an error</p>
         );
-    } else if (!groceryList.id) {
+    } else if (!List) {
       content = <div className="loading" />;
     } else {
       content = this.renderList();
     }
     return <Section className="ListPage">{content}</Section>;
   }
-}
-
-function ListContent({ item }) {
-  return <p className="ItemPage__content">{item.content}</p>;
 }

@@ -10,9 +10,6 @@ export default class NewList extends Component {
 
   componentDidMount() {
     this.context.clearError();
-    ItemApiService.getItems()
-      .then(data => this.context.setItemList(data))
-      .catch(data => this.context.setError(data));
   }
 
   renderItems() {
@@ -25,7 +22,8 @@ export default class NewList extends Component {
       id: Math.random() * 1000,
       title: itemName,
       quantity: itemQuantity,
-      date_created: new Date()
+      date_created: new Date(),
+      listid: 3
     };
     const newItems = [...this.context.itemList, newItem];
     this.context.setItemList(newItems);

@@ -13,7 +13,7 @@ const ListApiService = {
     );
   },
   getList(listId) {
-    return fetch(`${config.API_ENDPOINT}/items/${listId}`, {
+    return fetch(`${config.API_ENDPOINT}/api/lists/${listId}`, {
       headers: {
         authorization: `bearer ${TokenService.getAuthToken()}`
       }
@@ -22,6 +22,7 @@ const ListApiService = {
     );
   },
   addList(list) {
+    console.log(list);
     return fetch(`${config.API_ENDPOINT}/api/lists`, {
       method: "POST",
       headers: {
@@ -30,7 +31,7 @@ const ListApiService = {
       },
       body: JSON.stringify({
         title: list.title,
-        userId: list.userId
+        userid: list.userid
       })
     }).then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()

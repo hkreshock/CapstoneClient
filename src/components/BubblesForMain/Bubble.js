@@ -7,13 +7,11 @@ export default function Bubble(props) {
   let tranfY = Math.random() * 960;
   let transX = Math.random() * 750;
   let rad = Math.random() * 90;
-  // let rot = (Math.random() * 120) * (Math.random() < 0.5 ? -1 : 1)
 
   return (
     <g
       style={{
         animation: `up ${animS}s ${animMs}ms infinite`
-        // transform: `rotate(${rot}deg)`,
       }}
     >
       <g

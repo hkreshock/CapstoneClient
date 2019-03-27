@@ -30,7 +30,7 @@ const ItemApiService = {
         title: item.title,
         quantity: item.quantity,
         date_created: item.date_created,
-        listId: item.listId
+        listid: item.listid
       })
     }).then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()

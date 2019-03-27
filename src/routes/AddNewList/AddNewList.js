@@ -1,13 +1,18 @@
 import React, { Component } from "react";
-import ListContext from "../../context/ListContext";
+import LoginContext from "../../context/UserContext";
 import ListApiService from "../../services/list-api-service";
 
 export default class AddNewList extends Component {
-  static contextType = ListContext;
+  static defaultProps = {
+    location: {},
+    history: {
+      push: () => {}
+    }
+  };
+  static contextType = LoginContext;
 
   componentDidMount() {
     this.context.clearError();
-    console.log(ListApiService.getLists());
     ListApiService.getLists()
       .then(data => {
         this.context.setGroceryLists(data);
@@ -20,14 +25,14 @@ export default class AddNewList extends Component {
   onSubmitForm = e => {
     e.preventDefault();
     const newList = {
-      title: e.target.newListTitle.value
+      title: e.target.newListTitle.value,
+      userid: this.context.userLoggedIn.id
     };
-    // e.target['inputName'] references `<input name='inputName' />`
     ListApiService.getLists().then(data => {
-      this.context.setGroceryLists(newList, data);
+      this.context.setGroceryLists([...data, newList]);
     });
     ListApiService.addList(newList);
-    window.location.pathname = "/newList";
+    this.props.history.push("/newList");
   };
 
   render() {

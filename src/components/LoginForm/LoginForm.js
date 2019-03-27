@@ -2,48 +2,44 @@ import React, { Component } from "react";
 import { Button, Input } from "../Utils/Utils";
 import TokenService from "../../services/token-service";
 import AuthApiService from "../../services/auth-api-service";
+import LoginContext from "../../context/UserContext";
+import UserApiService from "../../services/user-api-service";
 
 export default class LoginForm extends Component {
   static defaultProps = {
     onLoginSuccess: () => {}
   };
-
-  handleSubmitJwtAuth = ev => {
-    ev.preventDefault();
-    this.setState({ error: null });
-    const { user_name, password } = ev.target;
-
-    AuthApiService.postLogin({
-      user_name: user_name.value,
-      password: password.value
-    })
-      .then(res => {
-        user_name.value = "";
-        password.value = "";
-        TokenService.saveAuthToken(res.authToken);
-        this.props.onLoginSuccess();
-      })
-      .catch(res => {
-        this.setState({ error: res.error });
-      });
-  };
-
   state = { error: null };
+  static contextType = LoginContext;
 
   handleSubmitBasicAuth = ev => {
     ev.preventDefault();
     const { user_name, password } = ev.target;
 
     console.log("login form submitted");
-    console.log(user_name.value, password.value);
 
     const authToken = window.btoa(`${user_name.value}:${password.value}`);
 
-    TokenService.saveAuthToken(authToken);
-
-    user_name.value = "";
-    password.value = "";
-    this.props.onLoginSuccess();
+    AuthApiService.postLogin({
+      user_name: user_name.value,
+      password: password.value
+    })
+      .then(() => {
+        TokenService.saveAuthToken(authToken);
+        return UserApiService.getUsers();
+      })
+      .then(users => {
+        return users.find(user => user.user_name === user_name.value);
+      })
+      .then(user => this.context.logIn(user))
+      .then(() => {
+        user_name.value = "";
+        password.value = "";
+        this.props.onLoginSuccess();
+      })
+      .catch(res => {
+        this.setState({ error: res.error });
+      });
   };
 
   render() {
