@@ -22,7 +22,6 @@ const ListApiService = {
     );
   },
   addList(list) {
-    console.log(list);
     return fetch(`${config.API_ENDPOINT}/api/lists`, {
       method: "POST",
       headers: {

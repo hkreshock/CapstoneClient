@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import ListApiService from "../../services/list-api-service";
 import { Section } from "../../components/Utils/Utils";
 import ListItem from "../../components/ListItem/ListItem";
-import LoginContext from "../../context/UserContext";
+import UserContext from "../../context/UserContext";
 
 export default class GroceryLists extends Component {
-  static contextType = LoginContext;
+  static contextType = UserContext;
 
   componentDidMount() {
     this.context.clearError();

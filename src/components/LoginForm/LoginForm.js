@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Button, Input } from "../Utils/Utils";
 import TokenService from "../../services/token-service";
 import AuthApiService from "../../services/auth-api-service";
-import LoginContext from "../../context/UserContext";
+import UserContext from "../../context/UserContext";
 import UserApiService from "../../services/user-api-service";
 
 export default class LoginForm extends Component {
@@ -10,7 +10,7 @@ export default class LoginForm extends Component {
     onLoginSuccess: () => {}
   };
   state = { error: null };
-  static contextType = LoginContext;
+  static contextType = UserContext;
 
   handleSubmitBasicAuth = ev => {
     ev.preventDefault();

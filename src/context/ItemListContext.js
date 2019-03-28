@@ -6,7 +6,8 @@ const ItemListContext = React.createContext({
   error: null,
   setError: () => {},
   clearError: () => {},
-  setItemList: () => {}
+  setItemList: () => {},
+  setListId: () => {}
 });
 export default ItemListContext;
 
@@ -15,6 +16,10 @@ export class ItemListProvider extends Component {
     itemList: [],
     listId: null,
     error: null
+  };
+
+  setListId = listId => {
+    this.setState({ listId });
   };
 
   setItemList = itemList => {
@@ -37,7 +42,8 @@ export class ItemListProvider extends Component {
       error: this.state.error,
       setError: this.setError,
       clearError: this.clearError,
-      setItemList: this.setItemList
+      setItemList: this.setItemList,
+      setListId: this.setListId
     };
     return (
       <ItemListContext.Provider value={value}>

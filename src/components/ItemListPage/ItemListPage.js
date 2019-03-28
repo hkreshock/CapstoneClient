@@ -11,12 +11,13 @@ export default class ItemListPage extends Component {
   componentDidMount() {
     this.context.clearError();
     console.log(ItemApiService.getItems());
+    console.log(this.context.listId);
     ItemApiService.getItems()
-    // .then(data => {
-    //   return data.filter(
-    //     item => item.listid === this.context
-    //   )
-    // })
+      // .then(data => {
+      //   return data.filter(
+      //     item => item.listid === this.context.listId
+      //   )
+      // })
       .then(data => this.context.setItemList(data))
       .catch(data => this.context.setError(data));
   }

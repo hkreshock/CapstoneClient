@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import ListApiService from "../../services/list-api-service";
 import { NiceDate, Hyph, Section } from "../../components/Utils/Utils";
-import LoginContext from "../../context/UserContext";
+import UserContext from "../../context/UserContext";
 import ItemListPage from "../../components/ItemListPage/ItemListPage";
 
 export default class ListPage extends Component {
-  static contextType = LoginContext;
+  static contextType = UserContext;
 
   state = {
     loaded: false

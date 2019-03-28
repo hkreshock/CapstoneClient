@@ -6,17 +6,17 @@ import App from "./components/App/App";
 import "./index.css";
 import { ItemListProvider } from "./context/ItemListContext";
 import { ItemProvider } from "./context/ItemContext";
-import { LoginProvider } from "./context/UserContext";
+import { UserProvider } from "./context/UserContext";
 
 ReactDOM.render(
   <BrowserRouter>
-    <LoginProvider>
+    <UserProvider>
       <ItemListProvider>
         <ItemProvider>
           <App />
         </ItemProvider>
       </ItemListProvider>
-    </LoginProvider>
+    </UserProvider>
   </BrowserRouter>,
   document.getElementById("root")
 );

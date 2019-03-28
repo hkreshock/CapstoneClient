@@ -1,22 +1,25 @@
 import React, { Component } from "react";
 
-const LoginContext = React.createContext({
+const UserContext = React.createContext({
   loggedIn: false,
   userLoggedIn: {},
   error: null,
+  listId: null,
   setError: () => {},
   logIn: () => {},
   logOut: () => {},
   groceryList: [],
   setGroceryLists: () => {},
   List: null,
-  setList: () => {}
+  setList: () => {},
+  setListId: () => {}
 });
-export default LoginContext;
+export default UserContext;
 
-export class LoginProvider extends Component {
+export class UserProvider extends Component {
   state = {
     loggedIn: false,
+    listId: null,
     userLoggedIn: {},
     error: null,
     groceryList: [],
@@ -26,6 +29,11 @@ export class LoginProvider extends Component {
   setError = error => {
     console.error(error);
     this.setState({ error });
+  };
+
+  setListId = listId => {
+    this.setState({ listId: listId });
+    console.log(listId);
   };
 
   clearError = () => {
@@ -51,6 +59,7 @@ export class LoginProvider extends Component {
   render() {
     const value = {
       loggedIn: this.state.loggedIn,
+      listId: this.state.listId,
       userLoggedIn: this.state.userLoggedIn,
       error: this.state.error,
       setError: this.setError,
@@ -60,12 +69,13 @@ export class LoginProvider extends Component {
       groceryList: this.state.groceryList,
       setGroceryLists: this.setGroceryLists,
       List: this.state.List,
-      setList: this.setList
+      setList: this.setList,
+      setListId: this.setListId
     };
     return (
-      <LoginContext.Provider value={value}>
+      <UserContext.Provider value={value}>
         {this.props.children}
-      </LoginContext.Provider>
+      </UserContext.Provider>
     );
   }
 }

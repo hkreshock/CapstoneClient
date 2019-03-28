@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import LoginContext from "../../context/UserContext";
+import UserContext from "../../context/UserContext";
 import ListApiService from "../../services/list-api-service";
 
 export default class AddNewList extends Component {
@@ -9,7 +9,7 @@ export default class AddNewList extends Component {
       push: () => {}
     }
   };
-  static contextType = LoginContext;
+  static contextType = UserContext;
 
   componentDidMount() {
     this.context.clearError();
@@ -32,6 +32,14 @@ export default class AddNewList extends Component {
       this.context.setGroceryLists([...data, newList]);
     });
     ListApiService.addList(newList);
+    ListApiService.getLists()
+      .then(data => {
+        return data.filter(list => list.userid === newList.userid);
+      })
+      .then(data => {
+        return data.find(list => list.title === newList.title);
+      })
+      .then(list => this.context.setListId(list.id));
     this.props.history.push("/newList");
   };
 

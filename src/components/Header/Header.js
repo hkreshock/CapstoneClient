@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { Hyph } from "../Utils/Utils";
 import TokenService from "../../services/token-service";
 import "./Header.css";
-import LoginContext from "../../context/UserContext";
+import UserContext from "../../context/UserContext";
 
 export default class Header extends Component {
-  static contextType = LoginContext;
+  static contextType = UserContext;
 
   handleLogoutClick = () => {
     TokenService.clearAuthToken().then(this.context.logOut);

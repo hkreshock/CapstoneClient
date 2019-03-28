@@ -8,7 +8,6 @@ import LoginPage from "../../routes/LoginPage/LoginPage";
 import RegistrationPage from "../../routes/RegistrationPage/RegistrationPage";
 import PageNotFound from "../../routes/PageNotFound/PageNotFound";
 import ItemPage from "../../routes/ItemPage/ItemPage";
-import ItemListPage from "../../routes/ItemListPage/ItemListPage";
 import MainPage from "../../routes/MainPage/MainPage";
 import NewList from "../../routes/NewList/NewList";
 import Bubbles from "../../components/BubblesForMain/Bubbles";
@@ -27,7 +26,6 @@ class App extends Component {
           <Bubbles numberOfBubbles={60} />
           <Switch>
             <Route exact path={"/"} component={MainPage} className="MainPage" />
-            <Route exact path={"/itemList"} component={ItemListPage} />
             <PublicOnlyRoute path={"/login"} component={LoginPage} />
             <PublicOnlyRoute path={"/register"} component={RegistrationPage} />
             <PrivateRoute path={"/newList"} component={NewList} />
