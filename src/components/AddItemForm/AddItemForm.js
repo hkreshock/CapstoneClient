@@ -34,11 +34,17 @@ export default class AddItemForm extends React.Component {
   };
 
   renderProducts() {
+    console.log(this.state.products);
     const itemListById = [];
     const idList = this.state.products.products.map(item => item.id);
+    console.log(idList);
     for (let i = 0; i < idList.length; i++) {
-      itemListById.push(ProduceApiService.getItem(idList[i]));
+      ProduceApiService.getItem(idList[i]).then(data => {
+        console.log(data);
+        itemListById.push(data);
+      });
     }
+    console.log(itemListById);
     return itemListById.map(product => (
       <ProductItem key={product.id} item={product} />
     ));
