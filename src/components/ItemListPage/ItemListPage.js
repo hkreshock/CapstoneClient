@@ -10,14 +10,11 @@ export default class ItemListPage extends Component {
 
   componentDidMount() {
     this.context.clearError();
-    console.log(ItemApiService.getItems());
-    console.log(this.context.listId);
     ItemApiService.getItems()
-      // .then(data => {
-      //   return data.filter(
-      //     item => item.listid === this.context.listId
-      //   )
-      // })
+      .then(data => {
+        // eslint-disable-next-line eqeqeq
+        return data.filter(item => item.listid == this.props.listId);
+      })
       .then(data => this.context.setItemList(data))
       .catch(data => this.context.setError(data));
   }
@@ -33,7 +30,7 @@ export default class ItemListPage extends Component {
       title: itemName,
       quantity: itemQuantity,
       date_created: new Date(),
-      listid: 2
+      listid: this.props.listId
     };
     const newItems = [...this.context.itemList, newItem];
     this.context.setItemList(newItems);
@@ -43,7 +40,7 @@ export default class ItemListPage extends Component {
   render() {
     const { error } = this.context;
     return (
-      <Section list className="ItemListPage">
+      <Section className="ItemListPage">
         <section>
           <AddItemForm onAddItem={this.handleAddItem} />
         </section>

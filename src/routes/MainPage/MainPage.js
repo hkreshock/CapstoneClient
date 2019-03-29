@@ -6,7 +6,7 @@ import "./MainPage.css";
 import Tooltip from "../../MISC/composition/Tooltip";
 import TokenService from "../../services/token-service";
 
-const firstTooltip = (
+const Register_Login = (
   <Tooltip
     color="blue"
     message="Register and Login are in the top right corner of your screen"
@@ -45,7 +45,7 @@ export default class MainPage extends Component {
                 This is your new tool to give your shopping list some depth!
               </p>{" "}
               <section>
-                If you haven't yet, register or login {firstTooltip} to begin
+                If you haven't yet, register or login {Register_Login} to begin
                 creating your new and advanced lists!
               </section>
               <p>

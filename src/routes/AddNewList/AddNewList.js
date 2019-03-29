@@ -39,8 +39,10 @@ export default class AddNewList extends Component {
       .then(data => {
         return data.find(list => list.title === newList.title);
       })
-      .then(list => this.context.setListId(list.id));
-    this.props.history.push("/newList");
+      .then(list => {
+        return list.id;
+      })
+      .then(id => this.props.history.push(`/list/${id}`));
   };
 
   render() {

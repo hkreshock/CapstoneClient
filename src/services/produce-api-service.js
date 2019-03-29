@@ -5,9 +5,11 @@ const ProduceApiService = {
     return fetch(
       `${
         config.PRODUCE_API_ENDPOINT
-      }/food/products/search?offset=0&query=${search}`,
+      }/food/products/search?offset=0&query=${search}&number=20`,
       {
-        headers: {}
+        headers: {
+          "X-RapidAPI-Key": `${config.X_RAPIDAPI_KEY}`
+        }
       }
     ).then(res =>
       !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()

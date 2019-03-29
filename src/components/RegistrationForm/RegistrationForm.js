@@ -14,7 +14,6 @@ export default class RegistrationForm extends Component {
     const { full_name, email, user_name, password } = ev.target;
 
     console.log("registration form submitted");
-    console.log({ full_name, email, user_name, password });
 
     this.setState({ error: null });
     AuthApiService.postUser({
@@ -23,7 +22,7 @@ export default class RegistrationForm extends Component {
       email: email.value,
       full_name: full_name.value
     })
-      .then(user => {
+      .then(() => {
         full_name.value = "";
         email.value = "";
         user_name.value = "";

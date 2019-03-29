@@ -7,6 +7,7 @@
   transform: translateX(-50%);
   opacity: 0.75;
   overflow: visible;
+  z-index: -1;
 }
 
 .bubbles {

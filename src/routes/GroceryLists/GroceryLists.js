@@ -30,7 +30,7 @@ export default class GroceryLists extends Component {
   render() {
     const { error } = this.context;
     return (
-      <Section list className="ListPage">
+      <Section className="ListPage">
         {error ? (
           <p className="red">There was an error, try again</p>
         ) : (

@@ -32,10 +32,6 @@ export default class Header extends Component {
     );
   }
 
-  renderWelcomeUser() {
-    return <h2>Welcome {this.context.userLoggedIn.user_name}</h2>;
-  }
-
   render() {
     return (
       <nav className="Header">
@@ -44,7 +40,6 @@ export default class Header extends Component {
             <div className="Title">Grocery Helper</div>
           </Link>
         </h1>
-        {this.context.userLoggedIn == null ? this.renderWelcomeUser() : null}
         {this.context.loggedIn === true
           ? this.renderLogoutLink()
           : this.renderLoginLink()}

@@ -9,7 +9,6 @@ import RegistrationPage from "../../routes/RegistrationPage/RegistrationPage";
 import PageNotFound from "../../routes/PageNotFound/PageNotFound";
 import ItemPage from "../../routes/ItemPage/ItemPage";
 import MainPage from "../../routes/MainPage/MainPage";
-import NewList from "../../routes/NewList/NewList";
 import Bubbles from "../../components/BubblesForMain/Bubbles";
 import ListPage from "../../routes/ListPage/ListPage";
 import AddNewList from "../../routes/AddNewList/AddNewList";
@@ -28,7 +27,6 @@ class App extends Component {
             <Route exact path={"/"} component={MainPage} className="MainPage" />
             <PublicOnlyRoute path={"/login"} component={LoginPage} />
             <PublicOnlyRoute path={"/register"} component={RegistrationPage} />
-            <PrivateRoute path={"/newList"} component={NewList} />
             <PrivateRoute path={"/item/:itemId"} component={ItemPage} />
             <PrivateRoute path={"/list/:listId"} component={ListPage} />
             <PrivateRoute path={"/addList"} component={AddNewList} />

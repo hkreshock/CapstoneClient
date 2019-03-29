@@ -32,12 +32,12 @@ export class ItemProvider extends Component {
     this.setState({ item });
   };
 
-  setItems = items => {
-    this.setState({ items });
-  };
-
   clearItem = () => {
     this.setItems([]);
+  };
+
+  setItems = items => {
+    this.setState({ items });
   };
 
   addItem = item => {
@@ -51,8 +51,8 @@ export class ItemProvider extends Component {
       setError: this.setError,
       clearError: this.clearError,
       setItem: this.setItem,
-      setItems: this.setItems,
       clearItem: this.clearItem,
+      setItems: this.setItems,
       addItem: this.addItem
     };
     return (

@@ -4,22 +4,20 @@ const UserContext = React.createContext({
   loggedIn: false,
   userLoggedIn: {},
   error: null,
-  listId: null,
+  groceryList: [],
+  List: null,
   setError: () => {},
+  clearError: () => {},
   logIn: () => {},
   logOut: () => {},
-  groceryList: [],
   setGroceryLists: () => {},
-  List: null,
-  setList: () => {},
-  setListId: () => {}
+  setList: () => {}
 });
 export default UserContext;
 
 export class UserProvider extends Component {
   state = {
     loggedIn: false,
-    listId: null,
     userLoggedIn: {},
     error: null,
     groceryList: [],
@@ -29,11 +27,6 @@ export class UserProvider extends Component {
   setError = error => {
     console.error(error);
     this.setState({ error });
-  };
-
-  setListId = listId => {
-    this.setState({ listId: listId });
-    console.log(listId);
   };
 
   clearError = () => {
@@ -59,18 +52,16 @@ export class UserProvider extends Component {
   render() {
     const value = {
       loggedIn: this.state.loggedIn,
-      listId: this.state.listId,
       userLoggedIn: this.state.userLoggedIn,
       error: this.state.error,
+      groceryList: this.state.groceryList,
+      List: this.state.List,
       setError: this.setError,
       clearError: this.clearError,
       logIn: this.logIn,
       logOut: this.logOut,
-      groceryList: this.state.groceryList,
       setGroceryLists: this.setGroceryLists,
-      List: this.state.List,
-      setList: this.setList,
-      setListId: this.setListId
+      setList: this.setList
     };
     return (
       <UserContext.Provider value={value}>

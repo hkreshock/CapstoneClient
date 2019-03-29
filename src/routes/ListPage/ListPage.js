@@ -26,6 +26,7 @@ export default class ListPage extends Component {
 
   renderList() {
     const { List } = this.context;
+    const { listId } = this.props.match.params;
     if (!List) {
       return <div className="loading" />;
     } else {
@@ -36,7 +37,7 @@ export default class ListPage extends Component {
             <Hyph />
             <NiceDate date={List.date_created} />
           </p>
-          <ItemListPage />
+          <ItemListPage listId={listId} />
         </div>
       );
     }
