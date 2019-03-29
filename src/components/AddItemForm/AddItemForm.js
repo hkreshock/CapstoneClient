@@ -1,6 +1,6 @@
 import React from "react";
 import ProduceApiService from "../../services/produce-api-service";
-// import { Section } from "../../components/Utils/Utils";
+import { Section } from "../../components/Utils/Utils";
 import ProductItem from "../ProductItem/ProductItem";
 
 export default class AddItemForm extends React.Component {
@@ -56,7 +56,7 @@ export default class AddItemForm extends React.Component {
           />
           <input name="quantityToAdd" type="number" placeholder="0" min="0" />
           <br />
-          {/* <button
+          <button
             onClick={() => this.setState({ readyToSubmit: false })}
             name="submitButton"
           >
@@ -64,7 +64,7 @@ export default class AddItemForm extends React.Component {
           </button>
           <Section className="ProductList">
             {this.state.products === null ? null : this.renderProducts()}
-          </Section> */}
+          </Section>
           <button
             onClick={() => this.setState({ readyToSubmit: true })}
             name="submitButton"
