@@ -2,11 +2,13 @@ import React from "react";
 import ProduceApiService from "../../services/produce-api-service";
 import { Section } from "../../components/Utils/Utils";
 import ProductItem from "../ProductItem/ProductItem";
+import ProduceContext from "../../context/ProduceContext";
 
 export default class AddItemForm extends React.Component {
+  static contextType = ProduceContext;
+
   state = {
-    readyToSubmit: false,
-    products: null
+    readyToSubmit: false
   };
 
   onSubmitForm = e => {
@@ -29,23 +31,22 @@ export default class AddItemForm extends React.Component {
     e.preventDefault();
     console.log(ProduceApiService.getItems(e.target.itemToAdd.value));
     return ProduceApiService.getItems(e.target.itemToAdd.value).then(data =>
-      this.setState({ products: data })
+      this.context.setProducts({ products: data })
     );
   };
 
   renderProducts() {
-    console.log(this.state.products);
-    const itemListById = [];
-    const idList = this.state.products.products.map(item => item.id);
+    console.log(this.context.products);
+    const idList = this.context.products.products.map(item => item.id);
     console.log(idList);
     for (let i = 0; i < idList.length; i++) {
       ProduceApiService.getItem(idList[i]).then(data => {
         console.log(data);
-        itemListById.push(data);
+        this.context.itemListById.push(data);
       });
     }
-    console.log(itemListById);
-    return itemListById.map(product => (
+    console.log(this.context.itemListById);
+    return this.context.itemListById.map(product => (
       <ProductItem key={product.id} item={product} />
     ));
   }
@@ -69,7 +70,7 @@ export default class AddItemForm extends React.Component {
             Check For Item
           </button>
           <Section className="ProductList">
-            {this.state.products === null ? null : this.renderProducts()}
+            {this.context.products === null ? null : this.renderProducts()}
           </Section>
           <button
             onClick={() => this.setState({ readyToSubmit: true })}

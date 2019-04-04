@@ -7,14 +7,17 @@ import "./index.css";
 import { ItemListProvider } from "./context/ItemListContext";
 import { ItemProvider } from "./context/ItemContext";
 import { UserProvider } from "./context/UserContext";
+import { ProduceProvider } from "./context/ProduceContext";
 
 ReactDOM.render(
   <BrowserRouter>
     <UserProvider>
       <ItemListProvider>
-        <ItemProvider>
-          <App />
-        </ItemProvider>
+        <ProduceProvider>
+          <ItemProvider>
+            <App />
+          </ItemProvider>
+        </ProduceProvider>
       </ItemListProvider>
     </UserProvider>
   </BrowserRouter>,
