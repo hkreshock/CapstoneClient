@@ -13,8 +13,10 @@ export default class Header extends Component {
   };
 
   renderLogoutLink() {
+    console.log(this.context.userLoggedIn);
     return (
       <div className="Header__logged-in">
+        <p>Hello {this.context.userLoggedIn.user_name}!</p>
         <Link onClick={this.handleLogoutClick} to="/">
           Logout
         </Link>

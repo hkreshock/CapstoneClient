@@ -5,6 +5,7 @@ import GroceryLists from "../GroceryLists/GroceryLists";
 import "./MainPage.css";
 import Tooltip from "../../MISC/composition/Tooltip";
 import TokenService from "../../services/token-service";
+import UserContext from "../../context/UserContext";
 
 const Register_Login = (
   <Tooltip
@@ -16,6 +17,8 @@ const Register_Login = (
 );
 
 export default class MainPage extends Component {
+  static contextType = UserContext;
+
   renderUserLists() {
     return (
       <div className="UserGroceryLists">
@@ -44,18 +47,18 @@ export default class MainPage extends Component {
               <p>
                 This is your new tool to give your shopping list some depth!
               </p>{" "}
-              <section>
-                If you haven't yet, register or login {Register_Login} to begin
-                creating your new and advanced lists!
-              </section>
-              <p>
-                If you're already logged in, click on "Start New List" to begin
-                using the Grocery Helper,{" "}
-              </p>{" "}
-              <p>
-                or select one of the lists you've already made to continue
-                adding to it!
-              </p>
+              {this.context.loggedIn === false ? (
+                <section>
+                  Register or login {Register_Login} to begin creating your new
+                  and advanced lists!
+                </section>
+              ) : (
+                <p>
+                  Click on "Start New List" to begin using the Grocery Helper,{" "}
+                  or select one of the lists you've already made to continue
+                  adding to it!
+                </p>
+              )}
             </section>
           </Section>
           {TokenService.hasAuthToken() ? this.renderStartNewList() : null}

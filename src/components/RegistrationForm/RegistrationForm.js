@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import { Button, Input, Required } from "../Utils/Utils";
 import AuthApiService from "../../services/auth-api-service";
+import TokenService from "../../services/token-service";
+import UserApiService from "../../services/user-api-service";
+import UserContext from "../../context/UserContext";
 
 export default class RegistrationForm extends Component {
+  static contextType = UserContext;
+
   static defaultProps = {
     onRegistrationSuccess: () => {}
   };
@@ -23,10 +28,29 @@ export default class RegistrationForm extends Component {
       full_name: full_name.value
     })
       .then(() => {
-        full_name.value = "";
-        email.value = "";
-        user_name.value = "";
-        password.value = "";
+        this.login(user_name.value, password.value);
+      })
+      .catch(res => {
+        this.setState({ error: res.error });
+      });
+  };
+
+  login = (user_name, password) => {
+    const authToken = window.btoa(`${user_name}:${password}`);
+
+    AuthApiService.postLogin({
+      user_name: user_name,
+      password: password
+    })
+      .then(() => {
+        TokenService.saveAuthToken(authToken);
+        return UserApiService.getUsers();
+      })
+      .then(users => {
+        return users.find(user => user.user_name === user_name);
+      })
+      .then(user => this.context.logIn(user))
+      .then(() => {
         this.props.onRegistrationSuccess();
       })
       .catch(res => {
